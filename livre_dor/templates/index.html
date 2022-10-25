@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block header %}
+
+<h1>Livre d'Or</h1>
+
+{% endblock header %}
+
+{% block main %}
+
+<span classe="message"> {{message}} </span>
+<div class="container"> 
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend>{{form.email.label}}</legend>
+            {{form.email}}
+        </fieldset>
+        <fieldset class="form-group">
+            <legend>{{form.comment.label}}</legend>
+            {{form.comment}}
+            <span class="help_text">{{form.comment.help_text}}</span>
+        </fieldset>
+        <button value="submit" name='sub' class="btn">Envoyer</button>
+    </form>
+</div>
+
+<table class="comments_display">
+    <tr>
+        <th> {{form.email.label}} </th>
+        <th> {{form.comment.label}} </th>
+        <th> Date </th>
+    </tr>
+    
+    {% for comment in data %}
+    <tr>
+        <td> {{comment.email}} </td>
+        <td> {{comment.comment}} </td>
+        <td> {{comment.date}} </td>
+    </tr>
+    {% endfor %} 
+
+</table>
+
+{% endblock main %}
